@@ -4,6 +4,7 @@ declare(strict_types=1);
 use Phalcon\Escaper;
 use Phalcon\Events\Event;
 use Phalcon\Flash\Direct as Flash;
+use Phalcon\Http\Response\Cookies as Cookies;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Mvc\View;
 use Phalcon\Mvc\View\Engine\Php as PhpEngine;
@@ -129,6 +130,13 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
+});
+
+$di->setShared('cookies', function () {
+    $cookies = new Cookies();
+    $cookies->useEncryption(false);
+
+    return $cookies;
 });
 
 $di->setShared('dispatcher', function() {
